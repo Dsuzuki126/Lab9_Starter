@@ -95,13 +95,109 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      
+      try {
+        
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        
+      } catch(err) {
+        
+        console.error(err)
+      } finally {
+        console.log("got to finally")
+      }
+      
     });
+    class CustomError {
+      constructor(message) {
+        this.message = message;
+        this.name = "Error";
+      }
+    }
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+    let firstNum1;
+    let secondNum2;
+    form.addEventListener('change', () => {
+      try {
+        firstNum1 = document.querySelector('#first-num').value;
+        secondNum2 = document.querySelector('#second-num').value;  
+        if (firstNum1 == "") {
+          throw new CustomError("no first input operand given");
+        }
+      } finally {
+        firstNum1 = document.querySelector('#first-num').value;
+        secondNum2 = document.querySelector('#second-num').value;  
+      }
+    })
 
     // Start your code here
     // You may move this JS to another file if you wish
+    // class CustomError {
+    //   constructor(message) {
+    //     this.message = message;
+    //     this.name = "Error";
+    //   }
+    // }
+    
+    errorBtns[0].addEventListener('click', () => { console.log("hello") })
+    errorBtns[1].addEventListener('click', () => { 
+      if (isNaN(parseFloat(firstNum1)) && isNaN(parseFloat(secondNum2))) {
+        console.error("Both operands are not numbers")
+      }
+      else if (isNaN(parseFloat(firstNum1))) {
+        console.error("First operand is not a number")
+      }
+      else if (isNaN(parseFloat(secondNum2))){
+        console.error("Second operand is not a number")
+        
+      }
+      else {
+        console.log("valid operands")
+      }
+    })
+    errorBtns[2].addEventListener('click', () => { console.count("count console") })
+    errorBtns[3].addEventListener('click', () => { console.warn("Make sure both operands are numbers") })
+    errorBtns[4].addEventListener('click', () => { 
+      const x = parseFloat(firstNum1);
+      const y =parseFloat( secondNum2);
+      const reason = "first operand is not strictly less than second operand";
+      
+      console.assert(x < y, {x,y,reason})
+    })
+    errorBtns[5].addEventListener('click', () => { console.clear() });
+    errorBtns[6].addEventListener('click', () => { console.dir(document.head) });
+    errorBtns[7].addEventListener('click', () => { console.dirxml(document) });
+    errorBtns[8].addEventListener('click', () => { console.group("label 1") });
+    errorBtns[9].addEventListener('click', () => { console.groupEnd("label 1") });
+    errorBtns[10].addEventListener('click', () => { console.table([
+      {
+        first : 4,
+        last : 20
+      },
+      {
+        first : 25,
+        last : 50
+      },
+      {
+        first : 15,
+        last : 35
+      }
+    ]) });
+    errorBtns[11].addEventListener('click', () => { console.time() });
+    errorBtns[12].addEventListener('click', () => { console.timeEnd() });
+    errorBtns[13].addEventListener('click', () => { 
+      const first = () => {second(); };
+      const second= () => {third(); };
+      const third= () => {console.trace(); };
+      first(); 
+    });
+    errorBtns[14].addEventListener('click', () => { //need to finish
+      
+    });
+
+
+
   </script>
 </body>
 
